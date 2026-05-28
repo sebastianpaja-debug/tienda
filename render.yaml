@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: tienda-elite
+    runtime: php
+    buildCommand: ""
+    startCommand: php -S 0.0.0.0:$PORT
+    envVars:
+      - key: PHP_VERSION
+        value: 8.1.0
