@@ -1,0 +1,25 @@
+<!-- ===================== MODAL LOGIN ===================== -->
+
+<div class="login-overlay" id="login-overlay" onclick="cerrarLogin()"></div>
+<div class="login-modal" id="login-modal">
+  <button class="login-cerrar" onclick="cerrarLogin()">&#10005;</button>
+  <div class="login-modal-header">
+    <div class="login-modal-logo">Elite</div>
+    <p class="login-modal-subtitle">Ingresa a tu cuenta</p>
+  </div>
+  <div class="login-campo">
+    <label for="campo-email">Correo electronico</label>
+    <input type="email" id="campo-email" placeholder="correo@ejemplo.com"
+           onkeydown="if(event.key==='Enter') document.getElementById('campo-password').focus()" />
+  </div>
+  <div class="login-campo">
+    <label for="campo-password">Contrasena</label>
+    <input type="password" id="campo-password" placeholder="Tu contrasena"
+           onkeydown="if(event.key==='Enter') intentarLogin()" />
+  </div>
+  <button class="btn-entrar" onclick="intentarLogin()">Iniciar Sesion</button>
+  <span class="error-login" id="login-error"></span>
+  <div class="login-footer">
+    <p>¿No tienes cuenta? <a href="#">Registrate aqui</a></p>
+  </div>
+</div>

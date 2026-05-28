@@ -1,0 +1,22 @@
+<!-- ===================== CARRITO ===================== -->
+
+<div class="overlay" id="overlay" onclick="cerrarCarrito()"></div>
+<aside class="carrito-panel" id="carrito-panel">
+
+  <div class="carrito-header">
+    <h3>Tu Seleccion</h3>
+    <button class="btn-cerrar" onclick="cerrarCarrito()">✕</button>
+  </div>
+
+  <div class="carrito-items" id="carrito-items"></div>
+  <div class="carrito-footer">
+    <div class="linea-total">
+      <span>Total</span>
+      <span id="total-carrito">$0</span>
+    </div>
+    <button class="btn-comprar" onclick="finalizarCompra()">
+      Confirmar pedido
+    </button>
+  </div>
+
+</aside>
