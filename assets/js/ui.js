@@ -137,7 +137,7 @@ function renderizarProductos(lista) {
 
     // ── Imagen del producto ──
     var img = nodo.querySelector("img");
-    img.src = p.imagen;
+    img.src = encodeURI(p.imagen);
     img.alt = p.nombre;
 
     // ── Datos del producto ──
@@ -219,7 +219,7 @@ function renderizarCarrito() {
 
     // Imagen producto
     var img = nodo.querySelector("img");
-    img.src = item.imagen;
+    img.src = encodeURI(item.imagen);
     img.alt = item.nombre;
 
     // Datos producto
@@ -292,7 +292,7 @@ function abrirModal(id) {
   modalTallaSeleccionada = null;
 
   // Carga imagen y datos
-  document.getElementById("modal-img").src = producto.imagen;
+  document.getElementById("modal-img").src = encodeURI(producto.imagen);
   document.getElementById("modal-img").alt = producto.nombre;
 
   document.getElementById("modal-categoria").textContent =

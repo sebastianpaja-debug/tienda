@@ -1,77 +1,54 @@
-// Usuario actualmente logueado (null = no hay sesión)
-var usuarioActual = null;
-
-// Control de estado del modal login
-var loginAbierto  = false;
 
 
-// ─────────────────────────────────────────────
-// 🔄 REFRESCO GLOBAL DE UI
-// ─────────────────────────────────────────────
+var usuarioActual  = null;
+var loginAbierto   = false;
+var productosFiltrados = null;
+
+
 function actualizarUICompleta() {
-  renderizarProductos(productosFiltrados || productos);
-  actualizarBadge();
+    renderizarProductos(productosFiltrados || productos);
+    actualizarBadge();
 }
 
 
-// ─────────────────────────────────────────────
-// 🔐 LOGIN
-// ─────────────────────────────────────────────
 function abrirLogin() {
-  loginAbierto = true;
-  uiAbrirLogin();
+    loginAbierto = true;
+    uiAbrirLogin();
 }
 
 function cerrarLogin() {
-  loginAbierto = false;
-  uiCerrarLogin();
+    loginAbierto = false;
+    uiCerrarLogin();
 }
 
 function intentarLogin() {
+    var email    = document.getElementById('campo-email').value.trim();
+    var password = document.getElementById('campo-password').value.trim();
 
-  var email    = document.getElementById("campo-email").value.trim();
-  var password = document.getElementById("campo-password").value.trim();
+    if (!email || !password) {
+        uiMostrarErrorLogin('Por favor completa todos los campos.');
+        return;
+    }
 
-  if (!email || !password) {
-    uiMostrarErrorLogin("Por favor completa todos los campos.");
-    return;
-  }
+   
+    autenticarUsuario(email, password, function(data) {
+        if (data.ok) {
+            usuarioActual = data.usuario;
 
-  var usuario = autenticarUsuario(email, password);
+            uiOcultarErrorLogin();
+            uiMostrarSesionActiva(usuarioActual);
+            cerrarLogin();
+            actualizarUICompleta();
+            mostrarToast('Bienvenido, ' + usuarioActual.nombre);
 
-  if (usuario) {
-
-    // ✅ Guardar sesión
-    usuarioActual = usuario;
-
-    uiOcultarErrorLogin();
-    uiMostrarSesionActiva(usuario);
-    cerrarLogin();
-
-    // 🔥 CLAVE: re-renderizar TODO
-    actualizarUICompleta();
-
-    mostrarToast("Bienvenido, " + usuario.nombre);
-
-  } else {
-    uiMostrarErrorLogin("Correo o contrasena incorrectos.");
-    uiAnimarLoginShake();
-  }
+        } else {
+            uiMostrarErrorLogin(data.error || 'Correo o contraseña incorrectos.');
+            uiAnimarLoginShake();
+        }
+    });
 }
 
 
-// ─────────────────────────────────────────────
-// 🚪 LOGOUT
-// ─────────────────────────────────────────────
 function cerrarSesion() {
-
-  usuarioActual = null;
-  carrito = [];
-
-  uiCerrarSesion();
-
-  // 🔥 CLAVE: re-renderizar TODO
-  actualizarUICompleta();
-
-  mostrarToast("Sesion cerrada");
+    window.location.href = 'index.php?action=logout';
 }
