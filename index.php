@@ -58,6 +58,7 @@ try {
         $productos[] = $p;
     }
 } catch (Exception $e) {
+    die('Error BD: ' . $e->getMessage());
    
 }
 ?>
